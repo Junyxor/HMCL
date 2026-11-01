@@ -393,8 +393,8 @@ public final class Decorator {
         navigator.navigate(
                 new DecoratorWizardDisplayer(wizardProvider, category),
                 ContainerAnimations.FORWARD,
-                Motion.SHORT4,
-                Motion.EASE);
+                Motion.PAGE_TRANSITION_DURATION,
+                Motion.PAGE_TRANSITION_INTERPOLATOR);
     }
 
     /// Marks `node` as an area from which a primary-button drag may move the stage.

@@ -21,8 +21,12 @@ import java.util.function.Consumer;
 public class AdvancedListBox extends ScrollPane {
     private final VBox container = new VBox();
 
+    /// The highlight that slides between the active navigation tabs of this box.
+    private final SlidingSelectionIndicator selectionIndicator = new SlidingSelectionIndicator(container);
+
     {
-        setContent(container);
+        // The indicator layer sits behind the items and shares their coordinate space.
+        setContent(new StackPane(selectionIndicator.getLayer(), container));
 
         FXUtils.smoothScrolling(this);
 
@@ -86,7 +90,9 @@ public class AdvancedListBox extends ScrollPane {
         AdvancedListItem item = createNavigationDrawerItem(title, leftGraphic);
         item.activeProperty().bind(controller.selectedTabProperty().isEqualTo(tab));
         item.setOnAction(e -> controller.selectTab(tab));
-        return add(item);
+        add(item);
+        selectionIndicator.track(item);
+        return this;
     }
 
     /// Adds an item that activates the tab through the controller and switches icons with its selection state.
@@ -104,7 +110,9 @@ public class AdvancedListBox extends ScrollPane {
         AdvancedListItem.setMargin(leftGraphic, AdvancedListItem.LEFT_ICON_MARGIN);
         FXUtils.onChange(item.activeProperty(), active -> leftGraphic.setIcon(active ? selectedGraphic : unselectedGraphic, Motion.SHORT4));
         item.setLeftGraphic(leftGraphic);
-        return add(item);
+        add(item);
+        selectionIndicator.track(item);
+        return this;
     }
 
     public AdvancedListBox add(int index, Node child) {

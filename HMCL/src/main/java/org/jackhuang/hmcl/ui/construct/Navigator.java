@@ -44,7 +44,7 @@ public class Navigator extends TransitionPane {
     }
 
     public void navigate(Node node, AnimationProducer animationProducer) {
-        navigate(node, animationProducer, Motion.SHORT4, Motion.EASE);
+        navigate(node, animationProducer, Motion.PAGE_TRANSITION_DURATION, Motion.PAGE_TRANSITION_INTERPOLATOR);
     }
 
     public void navigate(Node node, AnimationProducer animationProducer, Duration duration, Interpolator interpolator) {
@@ -116,7 +116,8 @@ public class Navigator extends TransitionPane {
 
         Object obj = from.getProperties().get("hmcl.navigator.animation");
         if (obj instanceof AnimationProducer animationProducer) {
-            setContent(node, Objects.requireNonNullElse(animationProducer.opposite(), animationProducer));
+            setContent(node, Objects.requireNonNullElse(animationProducer.opposite(), animationProducer),
+                    Motion.PAGE_TRANSITION_DURATION, Motion.PAGE_TRANSITION_INTERPOLATOR);
         } else {
             setContent(node, ContainerAnimations.NONE);
         }

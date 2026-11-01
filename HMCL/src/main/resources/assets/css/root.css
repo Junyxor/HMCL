@@ -156,7 +156,7 @@
 }
 
 .advanced-list-item > .rippler-container > .container {
-    -fx-padding: 10 16 10 16;
+    -fx-padding: 8 8 8 8;
     -fx-background-color: null;
 }
 
@@ -176,7 +176,25 @@
 }
 
 .advanced-list-item {
+    /* Inset the item into a rounded pill; with the inner padding above, the text stays where it was. */
+    -fx-padding: 2 8 2 8;
     -jfx-selected-background-fill: -monet-secondary-container;
+}
+
+.advanced-list-item > .rippler-container {
+    /* Rounds the hover and press feedback to the same pill shape as the selection. */
+    -fx-background-color: transparent;
+    -fx-background-radius: 10;
+}
+
+.advanced-list-item.sliding-selection {
+    /* The list box's sliding indicator draws the selection for these items instead. */
+    -jfx-selected-background-fill: transparent;
+}
+
+.advanced-list-box-indicator {
+    -fx-background-color: -monet-secondary-container-transparent-80;
+    -fx-background-radius: 10;
 }
 
 .advanced-list-item:selected > .rippler-container > .container > .two-line-list-item > .first-line > .title {

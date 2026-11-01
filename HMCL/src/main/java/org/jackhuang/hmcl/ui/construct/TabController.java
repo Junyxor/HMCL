@@ -113,7 +113,7 @@ public final class TabController implements PageAware {
         if (contentPane != null) {
             if (playAnimation && contentPane.getCurrentNode() != null) {
                 contentPane.setContent(content, ContainerAnimations.SLIDE_UP_FADE_IN,
-                        Motion.MEDIUM4, Motion.EASE_IN_OUT_CUBIC_EMPHASIZED);
+                        Motion.PAGE_TRANSITION_DURATION, Motion.PAGE_TRANSITION_INTERPOLATOR);
             } else {
                 contentPane.setContent(content, ContainerAnimations.NONE);
             }

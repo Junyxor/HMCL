@@ -238,7 +238,7 @@ final class MainWindowPane extends StackPane {
                 default -> ContainerAnimations.FADE;
             };
             decorator.setNavigationDirection(Navigation.NavigationDirection.START);
-            navBarPane.setContent(navBar, animation, Motion.SHORT4);
+            navBarPane.setContent(navBar, animation, Motion.PAGE_TRANSITION_DURATION, Motion.PAGE_TRANSITION_INTERPOLATOR);
         } else {
             navBarPane.getChildren().setAll(navBar);
         }

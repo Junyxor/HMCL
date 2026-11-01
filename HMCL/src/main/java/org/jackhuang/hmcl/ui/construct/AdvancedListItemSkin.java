@@ -25,6 +25,10 @@ public class AdvancedListItemSkin extends SkinBase<AdvancedListItem> {
     /// The background node opacity when the item is fully selected.
     private static final double SELECTED_BACKGROUND_OPACITY = 0.5;
 
+    /// The selection background's corner radii, matching the rounded hover feedback that
+    /// `root.css` gives to `.advanced-list-item > .rippler-container`.
+    private static final CornerRadii SELECTION_CORNER_RADII = new CornerRadii(10);
+
     /// The feedback wrapper receiving the item's preparation registration.
     private final RipplerContainer container;
 
@@ -72,7 +76,7 @@ public class AdvancedListItemSkin extends SkinBase<AdvancedListItem> {
     private void updateSelectionFill() {
         @Nullable Paint fill = getSkinnable().getSelectedBackgroundFill();
         selectionBackground.setBackground(fill == null ? null
-                : new Background(new BackgroundFill(fill, CornerRadii.EMPTY, Insets.EMPTY)));
+                : new Background(new BackgroundFill(fill, SELECTION_CORNER_RADII, Insets.EMPTY)));
     }
 
     /// Updates selection styling and fades from the displayed opacity when the item is showing.

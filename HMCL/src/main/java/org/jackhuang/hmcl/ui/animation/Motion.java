@@ -761,6 +761,19 @@ public final class Motion {
 
     // endregion Durations
 
+    // region Page transitions
+
+    /// The duration shared by page navigation, back navigation, tab switching and title bar transitions.
+    ///
+    /// Using one duration everywhere keeps the title bar, sidebar and page content moving in step.
+    public static final Duration PAGE_TRANSITION_DURATION = MEDIUM2;
+
+    /// The easing curve of the incoming page in page-level transitions: it moves fast at first and
+    /// settles gently, which reads as smooth without feeling sluggish.
+    public static final Interpolator PAGE_TRANSITION_INTERPOLATOR = EMPHASIZED_DECELERATE;
+
+    // endregion Page transitions
+
     private Motion() {
     }
 }
