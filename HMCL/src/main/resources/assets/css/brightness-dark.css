@@ -1,3 +1,9 @@
+/* Liquid glass tokens: a subtle top rim fading downward, and a soft sheen for filled buttons. */
+* {
+    -glass-rim: linear-gradient(to bottom, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.06) 60%, rgba(255, 255, 255, 0.03) 100%);
+    -glass-sheen: linear-gradient(to bottom, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 50%, transparent 51%, transparent 100%);
+}
+
 .hint {
     -fx-hyperlink-fill: -monet-inverse-primary;
 }

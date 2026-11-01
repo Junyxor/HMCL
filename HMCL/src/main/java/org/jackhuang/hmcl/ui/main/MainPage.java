@@ -41,6 +41,7 @@ import org.jackhuang.hmcl.ui.FXUtils;
 import org.jackhuang.hmcl.ui.SVG;
 import org.jackhuang.hmcl.ui.animation.AnimationUtils;
 import org.jackhuang.hmcl.ui.animation.ContainerAnimations;
+import org.jackhuang.hmcl.ui.animation.MicroInteractions;
 import org.jackhuang.hmcl.ui.animation.TransitionPane;
 import org.jackhuang.hmcl.ui.construct.MessageDialogPane;
 import org.jackhuang.hmcl.ui.construct.TwoLineListItem;
@@ -210,6 +211,7 @@ public final class MainPage extends StackPane implements DecoratorPage {
         }, instance -> instance.getRepository().setSelectedInstance(instance));
 
         StackPane.setAlignment(launchPane, Pos.BOTTOM_RIGHT);
+        MicroInteractions.installHoverPressScale(launchPane, 1.03, 0.96);
         {
             JFXButton launchButton = new JFXButton();
             launchButton.getStyleClass().add("launch-button");

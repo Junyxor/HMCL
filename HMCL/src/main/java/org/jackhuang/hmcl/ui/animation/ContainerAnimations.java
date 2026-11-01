@@ -192,14 +192,18 @@ public enum ContainerAnimations implements TransitionPane.AnimationProducer {
         }
     },
 
+    /// Fades the old page out, then fades the new page in while its panels slide back into place
+    /// and its content grows from [#NAVIGATION_INITIAL_SCALE] to full size (a Material "fade through").
     NAVIGATION {
-        /// Also clears the horizontal offsets of the target page's navigation panels.
+        /// Also clears the horizontal offsets of the target page's navigation panels and the scale of its content.
         @Override
         public void finish(Node nextNode) {
             super.finish(nextNode);
             if (nextNode instanceof DecoratorAnimatedPage nextPage) {
                 nextPage.getLeft().setTranslateX(0);
                 nextPage.getCenter().setTranslateX(0);
+                nextPage.getCenter().setScaleX(1);
+                nextPage.getCenter().setScaleY(1);
             }
         }
 
@@ -230,9 +234,12 @@ public enum ContainerAnimations implements TransitionPane.AnimationProducer {
                     new KeyValue(nextNode.opacityProperty(), 0, interpolator)));
             timeline.getKeyFrames().add(new KeyFrame(duration,
                     new KeyValue(nextNode.opacityProperty(), 1, interpolator)));
+            // Only the content area grows in, so the navigation sidebar keeps its size.
+            Node scaledNode = nextNode;
             if (nextNode instanceof DecoratorAnimatedPage nextPage) {
                 Node left = nextPage.getLeft();
                 Node center = nextPage.getCenter();
+                scaledNode = center;
 
                 timeline.getKeyFrames().add(new KeyFrame(halfDuration,
                         new KeyValue(left.translateXProperty(), -30, interpolator),
@@ -242,8 +249,21 @@ public enum ContainerAnimations implements TransitionPane.AnimationProducer {
                         new KeyValue(center.translateXProperty(), 0, interpolator)));
             }
 
+            timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO,
+                    new KeyValue(scaledNode.scaleXProperty(), NAVIGATION_INITIAL_SCALE, interpolator),
+                    new KeyValue(scaledNode.scaleYProperty(), NAVIGATION_INITIAL_SCALE, interpolator)));
+            timeline.getKeyFrames().add(new KeyFrame(halfDuration,
+                    new KeyValue(scaledNode.scaleXProperty(), NAVIGATION_INITIAL_SCALE, interpolator),
+                    new KeyValue(scaledNode.scaleYProperty(), NAVIGATION_INITIAL_SCALE, interpolator)));
+            timeline.getKeyFrames().add(new KeyFrame(duration,
+                    new KeyValue(scaledNode.scaleXProperty(), 1, Motion.EMPHASIZED_DECELERATE),
+                    new KeyValue(scaledNode.scaleYProperty(), 1, Motion.EMPHASIZED_DECELERATE)));
+
             return timeline;
         }
     },
     ;
+
+    /// The scale at which the incoming page's content starts growing during [#NAVIGATION].
+    private static final double NAVIGATION_INITIAL_SCALE = 0.96;
 }
